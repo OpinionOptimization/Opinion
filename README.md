@@ -2,5 +2,5 @@
 
 graph.jl contains initilizations.
 
-kinternalmin.jl contains 3 algorithm and other baselines mentioned in the article.
+kinternalmin.jl contains 3 algorithms and other baselines mentioned in the article.
 
