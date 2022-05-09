@@ -101,10 +101,7 @@ end
 
 
 
-function runtime()
-    #filename = [ "Physicians.txt","filmtrust.txt", "Humanproteins.txt","p2p-Gnutella08.txt","Wiki-Vote.txt",
-    #"dblp.txt","Wikipedialinks.txt"];
-    filename = ["Adolescenthealth.txt", "twitterlist.txt" ];
+function runtime(filename) #effectiveness
     l = length(filename);
     n = zeros(l);
     m = zeros(l);
@@ -164,19 +161,12 @@ function runtime()
     rf500err = rf500err,
     rf1000err = rf1000err,
     rf2000err = rf2000err)
-    f = open("kintertime.csv","w");
-    println(f,df);
-    close(f);
-    println(df)
+    return df
 end
 
 
 
-function runtime2()
-    #filename = ["p2p-Gnutella31.txt","soc-Epinions1.txt","Email-EuAll.txt","web-Stanford.txt","web-NotreDame.txt",
-    #        "web-BerkStan.txt","web-Google.txt","NorthwestUSA.txt","WikiTalk.txt","greatlakes.txt"];
-    #filename = ["EUinstitution.txt", "FullUSA1.txt"];
-    filename = ["greatlakes.txt"];
+function runtime2(filename)
     l = length(filename);
     n = zeros(l);
     m = zeros(l);
@@ -214,15 +204,13 @@ function runtime2()
     df = DataFrame(name=filename,n=n,m=m,rf500value = rf500value,
     rf500time = rf500time,
     rf1000value = rf1000value,rf1000time = rf1000time,rf2000value = rf2000value,rf2000time = rf2000time)
-    f = open("kintertime2.csv","w");
-    println(f,df);
-    close(f);
+    return df
 end
 
 
 
 
-function runeffectnew(G,s,tau,rho) #k = 10,20,30,40,50
+function runeffect(G,s,tau,rho) #k = 10,20,30,40,50
     #exact, rf, s-order, d-order，random,z-order
     k=50;
     effect = zeros(5,6);
@@ -258,8 +246,6 @@ function runeffectnew(G,s,tau,rho) #k = 10,20,30,40,50
         end
         effect[i,3] = sum(rho.*ss)/G.n;
     end
-
-
 
 
     din = zeros(G.n);
@@ -324,7 +310,7 @@ function runeffectuniform(filename)
     rho = influence_centrality_real(G);
     s = rand(G.n,1);
     tau = 500;
-    eff = runeffectnew(G,s,tau,rho);
+    eff = runeffect(G,s,tau,rho);
 end
 
 
@@ -345,5 +331,5 @@ function runeffectgauss(filename)
         s[i] = k*s[i]+b;
     end
     tau = 500;
-    eff = runeffectnew(G,s,tau,rho);
+    eff = runeffect(G,s,tau,rho);
 end
